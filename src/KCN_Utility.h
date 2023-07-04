@@ -22,7 +22,7 @@ enum i2cReadBytes
     I2C_READ_2 = 2,
     I2C_READ_4 = 4,
     I2C_READ_8 = 8
-}
+};
 
 struct Button
 {

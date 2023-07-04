@@ -8,8 +8,6 @@
  *
  * @return The address of the first device found, or 0 if no devices are
  *         found.
- *
- * @throws None
  */
 uint8_t i2cScanner()
 {
