@@ -10,6 +10,21 @@
 #include "Arduino.h"
 #include "Wire.h"
 
+typedef enum
+{
+    X_POS = 0x9F,
+    X_NEG = 0x6F,
+    Y_POS = 0x3F,
+    Y_NEG = 0xCF,
+    R_POS = 0xFF,
+    R_NEG = 0x0F,
+    LT45 = 0x15,
+    RT45 = 0x8A,
+    LB45 = 0x2A,
+    RB45 = 0x45,
+    STOP = 0x00
+} SystemDirection;
+
 uint8_t i2cScanner();
 uint8_t i2cReceiveUint8(uint8_t address);
 uint16_t i2cReceiveUint16(uint8_t address);
@@ -112,6 +127,13 @@ struct i2cSensor
     void doRead(uint64_t &val);
 
     void autoRead(uint64_t &val);
+};
+
+struct MecanumGroup
+{
+    StepperMotor motor[4];
+    MecanumGroup(StepperMotor a, StepperMotor b, StepperMotor c, StepperMotor d);
+    void drive(SystemDirection direction, uint8_t delay_us);
 };
 
 #endif

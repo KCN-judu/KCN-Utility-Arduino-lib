@@ -393,3 +393,25 @@ void i2cSensor::autoRead(uint64_t &val)
         break;
     }
 }
+
+MecanumGroup::MecanumGroup(StepperMotor a, StepperMotor b, StepperMotor c, StepperMotor d)
+    : motor{a, b, c, d} {}
+
+/**
+ * Drives the mecanum group in the specified direction.
+ *
+ * @param direction the direction in which to drive the mecanum group
+ * @param delay_us the delay between each step pulse in microseconds
+ */
+void MecanumGroup::drive(SystemDirection direction, uint8_t delay_us)
+{
+    for (uint8_t i = 0; i < 4; ++i)
+    {
+        if (direction & (1 << i))
+        {
+
+            this->motor[i].setDirection((direction & (1 << (i + 4))) ? POSITIVE : NEGATIVE);
+            this->motor[i].stepPulse(delay_us);
+        }
+    }
+}
